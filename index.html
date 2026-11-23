@@ -1,50 +1,374 @@
-<!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>BGTNN | Dashboard công trình cầu</title>
-<style>
-:root{--navy:#073765;--blue:#0755a3;--red:#c8262f;--green:#098437;--purple:#6638a6;--bg:#eaf4fc;--ink:#142a43;--muted:#53677d}*{box-sizing:border-box}body{margin:0;background:linear-gradient(#eaf5ff,#f6faff);font-family:Arial,"Segoe UI",sans-serif;color:var(--ink)}.shell{max-width:1680px;margin:auto;padding:0 12px 20px}header{background:linear-gradient(115deg,#00325d,#07549c 65%,#00325d);color:white;padding:18px 24px;border-bottom:6px solid #25b1ee}.brand{font-size:12px;letter-spacing:.7px;font-weight:bold;opacity:.95}.headline{text-align:center;font-size:clamp(21px,2.8vw,39px);font-weight:900;margin:8px 0}.subhead{text-align:center;background:#dff6ff;color:#123f6d;border-radius:22px;padding:9px 12px;font-size:14px;font-weight:700}.toolbar{display:flex;gap:12px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin:12px 2px}.status{font-size:13px;color:#425d76}.actions{display:flex;gap:8px}.btn{border:1px solid #9bb8d2;background:white;color:#174976;border-radius:8px;padding:8px 12px;cursor:pointer;font-weight:700}.btn:hover{background:#e3f3ff}.layout{display:grid;grid-template-columns:1.06fr .88fr 1.12fr;gap:12px}.column{display:flex;flex-direction:column;gap:12px}.panel{background:#fff;border:1.5px solid #b5d1e9;border-radius:15px;overflow:hidden;box-shadow:0 2px 6px #003d7020}.panel-title{color:white;padding:13px 16px;font-size:clamp(16px,1.3vw,23px);font-weight:900;line-height:1.25}.red .panel-title{background:linear-gradient(90deg,#b7192a,#dc3740)}.blue .panel-title{background:linear-gradient(90deg,#06488f,#116ac2)}.green .panel-title{background:linear-gradient(90deg,#06712c,#12a347)}.purple .panel-title{background:linear-gradient(90deg,#5b2995,#8051b5)}.panel-body{padding:10px 14px}.project{padding:14px 3px;border-bottom:1px solid #c6d9e8}.project:last-child{border:0}.project-head{display:flex;justify-content:space-between;gap:8px;align-items:start}.project-name{font-size:16px;font-weight:900;color:#12385d}.project-desc{font-size:12px;color:var(--muted);margin-top:4px;line-height:1.4}.project-bottom{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:12px}.deadline{display:inline-block;background:#0c8a38;color:white;border-radius:9px;padding:9px 12px;font-weight:900;font-size:14px;max-width:65%}.progress-block{min-width:100px;flex:1;max-width:150px}.pct{font-size:24px;font-weight:900;color:#06549d}.bar{background:#d8e5f0;height:10px;border-radius:10px;overflow:hidden;margin-top:5px}.bar span{display:block;background:linear-gradient(90deg,#0a8a37,#34c45a);height:100%;width:0;transition:width .5s}.note{font-size:12px;line-height:1.45;color:#44576b;margin-top:8px}.callout{background:#dff1ff;color:#084477;padding:13px;border-radius:12px;font-size:15px;font-weight:900;text-align:center;margin-top:10px}.warning{background:#fff3f3}.warning .pct{color:#bf2934}.warning .bar span{background:#dc3942}.warning-row{padding:12px 2px;border-bottom:1px solid #edc7cb}.warning-row:last-child{border:0}.warning-row .project-head{align-items:center}.warning-row .project-name{font-size:15px}.warning-row .pct{font-size:20px}.small-item{padding:11px 4px;border-bottom:1px solid #d5e2eb;font-size:14px;line-height:1.5}.small-item:last-child{border:0}.small-item strong{display:block;color:#153a5d}.milestone{background:#d9f6df;border-radius:10px;text-align:center;padding:13px;margin-top:10px;font-size:19px;font-weight:900;color:#096b2d}.footer{background:#06396b;color:#fff;text-align:center;font-size:14px;padding:13px;margin-top:13px;border-radius:8px}.stats{display:flex;gap:8px;margin-top:8px}.stat{flex:1;background:#eaf4ff;border-radius:9px;padding:9px;text-align:center}.stat b{display:block;color:#0754a0;font-size:24px}.stat span{font-size:11px}.tiny{font-size:11px;color:#647a8e}.error{color:#b51f2b;font-weight:700}.loading{opacity:.65}@media(max-width:1100px){.layout{grid-template-columns:1fr 1fr}.column:last-child{grid-column:1/-1}}@media(max-width:680px){.layout{grid-template-columns:1fr}.column:last-child{grid-column:auto}.headline{text-align:left}.subhead{text-align:left}.project-name{font-size:15px}.panel-title{font-size:18px}}
-</style></head><body>
-<header><div class="shell"><div class="brand">BAN QLDA ĐTXD CÁC CÔNG TRÌNH GIAO THÔNG VÀ NÔNG NGHIỆP TP ĐÀ NẴNG (BGTNN)</div><div class="headline">CHỈ ĐẠO & TIẾN ĐỘ CÁC CÔNG TRÌNH CẦU</div><div class="subhead">TB 1155/TB-VP (17/11/2026) — Kết luận Chủ tịch UBND TP &nbsp; | &nbsp; CV 22054/SXD-QLXD (23/11/2026) — Báo cáo, kiến nghị Sở Xây dựng</div></div></header>
-<div class="shell"><div class="toolbar"><div id="status" class="status">Dữ liệu mẫu theo CV 22054, chờ kết nối Google Sheets</div><div class="actions"><button class="btn" id="refresh">↻ Làm mới</button><button class="btn" onclick="window.print()">⎙ In / PDF</button></div></div>
-<div class="layout"><div class="column"><section class="panel red"><div class="panel-title">📅 MỐC CHỈ ĐẠO: TRƯỚC 31/12/2026 <div style="font-size:13px;font-weight:500">Theo TB 1155/TB-VP</div></div><div class="panel-body" id="directives"></div></section></div>
-<div class="column"><section class="panel blue"><div class="panel-title">🌉 CÁC CẦU SXD ĐÁNH GIÁ CƠ BẢN ĐÁP ỨNG THÔNG XE NĂM 2026 <div style="font-size:13px;font-weight:500">Theo CV 22054/SXD-QLXD</div></div><div class="panel-body" id="traffic"></div></section><section class="panel green"><div class="panel-title">🛣 CHUẨN BỊ ĐẦU TƯ <div style="font-size:13px;font-weight:500">Theo TB 1155/TB-VP</div></div><div class="panel-body" id="investment"></div></section></div>
-<div class="column"><section class="panel red"><div class="panel-title">⚠ CẢNH BÁO TIẾN ĐỘ <div style="font-size:13px;font-weight:500">Theo CV 22054/SXD-QLXD</div></div><div class="panel-body warning" id="warnings"></div></section><section class="panel purple"><div class="panel-title">🤝 NHIỆM VỤ PHỐI HỢP <div style="font-size:13px;font-weight:500">Theo TB 1155 và kiến nghị CV 22054</div></div><div class="panel-body" id="coordination"></div></section></div></div>
-<div class="footer">TB 1155: NHIỆM VỤ VÀ MỐC CHỈ ĐẠO &nbsp; | &nbsp; CV 22054: TÌNH HÌNH VÀ KIẾN NGHỊ — KHÔNG TỰ ĐIỀU CHỈNH THỜI HẠN</div><div class="tiny" style="margin-top:8px">Dữ liệu nền lấy từ hai văn bản ngày 17/11 và 23/11/2026. Các trường cập nhật Google Sheets được hiển thị kèm thời điểm cập nhật; không tự xác nhận hoàn thành khi chưa có hồ sơ.</div></div>
-<script>
-/* ======================= CẤU HÌNH GOOGLE SHEETS =======================
- 1. Tạo Google Sheet, trang tên Dashboard_Data; dán các dòng từ mau_google_sheet.csv.
- 2. Chia sẻ -> Quyền truy cập chung -> Bất kỳ ai có đường liên kết -> Người xem.
- 3. Thay SHEET_ID bằng ID ở URL: docs.google.com/spreadsheets/d/ID/edit.
- 4. GitHub Pages có thể đọc Sheet công khai bằng Google Visualization JSONP.
- 5. KHÔNG đưa thông tin mật/nội bộ vào Sheet được công khai.
-====================================================================== */
-const CONFIG={SHEET_ID:'',SHEET_NAME:'Dashboard_Data',REFRESH_MINUTES:5};
-const fallback=[
-{id:'VL',group:'directive',name:'Cầu Văn Ly và đường dẫn',detail:'Thông xe kỹ thuật',deadline:'Trước 31/12/2026',progress:78.5,note:'Đã thông xe tạm; còn di dời hạ tầng kỹ thuật, khu tái định cư',updated:'23/11/2026'},
-{id:'TA',group:'directive',name:'Cầu Tây An 1 và cầu Tây An 2',detail:'Dự án Đường tránh lũ kết hợp phát triển đô thị Nam Phước',deadline:'Trước 31/12/2026',progress:70,note:'Tỷ lệ 70% là tiến độ chung dự án; GPMB đã hoàn thành',updated:'23/11/2026'},
-{id:'AB',group:'directive',name:'Đoạn đường còn lại nối với Quốc lộ 14B',detail:'Dự án Đường nối từ ĐT.609C đến QL14B (cầu An Bình)',deadline:'Hoàn thành trước 31/12/2026',progress:null,note:'Rà soát tổ chức giao thông tại nút giao QL14B, bảo đảm an toàn',updated:'17/11/2026'},
-{id:'TG',group:'traffic',name:'Cầu Tây Giang',detail:'Đường cầu Bình Sa đi Bình Hải',deadline:'Thông xe trong năm 2026',progress:76.8,note:'Còn 02 hộ GPMB; hoàn thành toàn bộ trước 29/3/2027',updated:'23/11/2026'},
-{id:'NT',group:'traffic',name:'Cầu Nghĩa Tự',detail:'',deadline:'Thông xe trong năm 2026',progress:89.8,note:'Còn 02 hộ phía Tây và di dời hạ tầng kỹ thuật; hoàn thành trước tháng 6/2027',updated:'23/11/2026'},
-{id:'QD',group:'warning',name:'Cầu Quảng Đà',detail:'Đường vành đai phía Bắc',deadline:'Khó thông tuyến trước 31/12/2026',progress:40,note:'40% là tiến độ cầu vượt cao tốc; 93/484 hồ sơ GPMB chưa giải quyết',updated:'23/11/2026'},
-{id:'TH',group:'warning',name:'Cầu Tam Hòa (Trường Giang)',detail:'',deadline:'Hoàn thành trước 29/3/2027',progress:69.4,note:'Còn 0,8 km chưa bàn giao mặt bằng; SXD đánh giá khó hoàn thành 2026',updated:'23/11/2026'},
-{id:'TT',group:'warning',name:'Cầu Tam Tiến',detail:'',deadline:'Hoàn thành tháng 6/2028',progress:null,note:'Còn 01 hộ; lựa chọn nhà thầu thi công trở lại tháng 12/2026',updated:'23/11/2026'},
-{id:'QS',group:'warning',name:'Cầu Ly Ly, Chợ Đụn, cầu vượt đường sắt',detail:'Dự án kết nối tiểu vùng Quế Sơn',deadline:'Hoàn thành năm 2028',progress:null,note:'GPMB trước 31/12/2026; hoàn thiện điều chỉnh chủ trương đầu tư',updated:'23/11/2026'},
-{id:'DN1',group:'investment',name:'Đường nối từ ĐH5.ĐL đến ĐT.609C',detail:'Đường nối cầu Sông Thu và cầu An Bình',deadline:'Phấn đấu khởi công trước 29/3/2027',progress:null,note:'Đã phê duyệt chủ trương đầu tư tại QĐ 5262 ngày 16/11/2026',updated:'23/11/2026'},
-{id:'DN2',group:'investment',name:'Đường nối từ cầu Văn Ly kết nối cầu Lệ Bắc đến QL14H',detail:'',deadline:'Phấn đấu khởi công trước 29/3/2027',progress:null,note:'Đẩy nhanh thủ tục đầu tư',updated:'17/11/2026'},
-{id:'PH1',group:'coordination',name:'Cổng, tường rào Trường Tiểu học Duy Tân',detail:'Sở Xây dựng chủ trì; BGTNN phối hợp',deadline:'Trước 25/11/2026',progress:null,note:'Rà soát khu vực chờ đưa đón học sinh, phân luồng bảo đảm an toàn',updated:'17/11/2026'},
-{id:'PH2',group:'coordination',name:'Đường dân sinh Nam Phước bị hư hỏng',detail:'UBND xã Nam Phước chủ trì; BGTNN phối hợp',deadline:'Theo nhiệm vụ phối hợp',progress:null,note:'Kiểm tra hư hỏng, phương án sửa chữa, dự toán và đề xuất kinh phí',updated:'17/11/2026'},
-{id:'PH3',group:'coordination',name:'Tổ chức thi công, GPMB và báo cáo',detail:'BGTNN và các đơn vị phối hợp',deadline:'Báo cáo SXD trước ngày 20 hằng tháng',progress:null,note:'Lập tiến độ chi tiết; huy động nhân lực, thiết bị; xử lý nhà thầu chậm; phối hợp GPMB, tái định cư, di dời hạ tầng kỹ thuật',updated:'23/11/2026'}
-];
-let data=fallback.slice();let lastSuccess=null;
-function esc(v){return String(v??'').replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]))}
-function percent(v){if(v===null||v===undefined||v==='')return '';let n=Number(String(v).replace(',','.').replace('%',''));return Number.isFinite(n)?Math.max(0,Math.min(100,n)):null}
-function pctLabel(v){const p=percent(v);return p===null||p===''?'Chưa cập nhật':p.toLocaleString('vi-VN',{maximumFractionDigits:1})+'%'}
-function bar(v){let p=percent(v);return p===null||p===''?'':`<div class="progress-block"><div class="tiny">Tiến độ thi công</div><div class="pct">${pctLabel(v)}</div><div class="bar"><span style="width:${p}%"></span></div></div>`}
-function card(x,warning=false){return `<div class="${warning?'warning-row':'project'}"><div class="project-head"><div><div class="project-name">${esc(x.name)}</div>${x.detail?`<div class="project-desc">${esc(x.detail)}</div>`:''}</div>${warning?bar(x.progress):''}</div>${warning?`<div class="note"><b>Mốc:</b> ${esc(x.deadline)}</div>`:`<div class="project-bottom"><span class="deadline">${esc(x.deadline)}</span>${bar(x.progress)}</div>`}<div class="note">${esc(x.note||'')}</div>${x.updated?`<div class="tiny">Số liệu cập nhật: ${esc(x.updated)}</div>`:''}</div>`}
-function small(x){return `<div class="small-item"><strong>${esc(x.name)}</strong>${x.detail?`<div>${esc(x.detail)}</div>`:''}<div><b>${esc(x.deadline)}</b></div>${x.note?`<div class="note">${esc(x.note)}</div>`:''}${x.updated?`<div class="tiny">Cập nhật: ${esc(x.updated)}</div>`:''}</div>`}
-function render(){let g=k=>data.filter(x=>x.group===k);let ds=g('directive');document.getElementById('directives').innerHTML=ds.map(x=>card(x)).join('')+`<div class="callout">03 CÔNG TRÌNH / HẠNG MỤC CÓ MỐC TRƯỚC 31/12/2026 THEO TB 1155</div>`;document.getElementById('traffic').innerHTML=g('traffic').map(x=>card(x)).join('')+'<div class="callout">Lưu ý: Văn Ly, Tây An 1 và Tây An 2 cũng thuộc nhóm SXD đánh giá đáp ứng tiến độ thông xe 2026; không đếm trùng.</div>';document.getElementById('warnings').innerHTML=g('warning').map(x=>card(x,true)).join('');document.getElementById('investment').innerHTML=g('investment').map(small).join('')+'<div class="milestone">PHẤN ĐẤU KHỞI CÔNG TRƯỚC 29/3/2027</div>';document.getElementById('coordination').innerHTML=g('coordination').map(small).join('')}
-function setStatus(msg,isError=false){const el=document.getElementById('status');el.textContent=msg;el.className='status'+(isError?' error':'')}
-function loadSheet(){if(!CONFIG.SHEET_ID){render();setStatus('Đang hiển thị dữ liệu mẫu. Nhập SHEET_ID trong index.html để kết nối Google Sheets.');return}setStatus('Đang tải dữ liệu Google Sheets…');const cb='bgtCallback'+Date.now();const script=document.createElement('script');const timeout=setTimeout(()=>{cleanup();setStatus('Không tải được Sheet; đang giữ dữ liệu gần nhất. Kiểm tra quyền xem và tên trang tính.',true)},15000);function cleanup(){clearTimeout(timeout);script.remove();delete window[cb]}
-window[cb]=function(res){try{if(res.status==='error')throw new Error(res.errors?.[0]?.message||'Google Sheets trả lỗi');const t=res.table;if(!t||!t.rows)throw new Error('Không có dữ liệu');const fields=['id','group','name','detail','deadline','progress','note','updated'];const rows=t.rows.map(r=>{const o={};fields.forEach((f,i)=>o[f]=r.c?.[i]?.v??'');return o}).filter(x=>x.id&&x.group&&x.name);if(!rows.length)throw new Error('Bảng trống hoặc sai thứ tự cột');data=rows;lastSuccess=new Date();render();setStatus(`Đã đồng bộ ${rows.length} mục từ Google Sheets • ${lastSuccess.toLocaleString('vi-VN')}`)}catch(e){setStatus('Lỗi đọc Google Sheets: '+e.message+'; giữ dữ liệu gần nhất.',true)}finally{cleanup()}};
-script.onerror=()=>{cleanup();setStatus('Không thể truy cập Google Sheets; giữ dữ liệu gần nhất.',true)};const q=encodeURIComponent('select A,B,C,D,E,F,G,H');const sheet=encodeURIComponent(CONFIG.SHEET_NAME);script.src=`https://docs.google.com/spreadsheets/d/${encodeURIComponent(CONFIG.SHEET_ID)}/gviz/tq?sheet=${sheet}&tq=${q}&tqx=responseHandler:${cb}&_=${Date.now()}`;document.head.appendChild(script)}
-document.getElementById('refresh').onclick=loadSheet;render();loadSheet();setInterval(loadSheet,Math.max(1,CONFIG.REFRESH_MINUTES)*60000);
+<!DOCTYPE html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>IOC BGTNN | Chỉ đạo và tiến độ công trình cầu</title><style>
+    /* =====================================================
+       RESET & BASE STYLES
+    ===================================================== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      background: #e8ecf1;
+      color: #1e293b;
+      overflow: hidden;
+    }
+
+    .app {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* =====================================================
+       HEADER (XANH CHUẨN #0661B6 & LOGO)
+    ===================================================== */
+    .topbar {
+      width: 100%;
+      height: 56px;
+      min-height: 56px;
+      background: #0661B6;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,.18);
+      position: relative;
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .seal {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,.75);
+      box-shadow: 0 1px 5px rgba(0,0,0,.25);
+    }
+
+    .seal img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-txt {
+      min-width: 0;
+    }
+
+    .brand-txt strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.25;
+      white-space: nowrap;
+      letter-spacing: .15px;
+    }
+
+    .brand-txt span {
+      display: block;
+      margin-top: 2px;
+      font-size: 10px;
+      color: rgba(255,255,255,.78);
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .badge, .date {
+      display: inline-flex;
+      align-items: center;
+      height: 27px;
+      padding: 0 12px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #ffffff;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 15px;
+      white-space: nowrap;
+    }
+
+    /* =====================================================
+       MAIN WRAPPER & KPI CARDS
+    ===================================================== */
+    .main-wrap {
+      width: 100%;
+      flex: 1 1 auto;
+      min-height: 0;
+      padding: 10px 14px;
+      background: #e8ecf1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow: hidden;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.06);
+      border-left: 4px solid #0661B6;
+    }
+
+    .kpi-card.green { border-left-color: #16a34a; }
+    .kpi-card.amber { border-left-color: #d97706; }
+    .kpi-card.red { border-left-color: #dc2626; }
+
+    .kpi-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+    }
+
+    .kpi-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: #0661B6;
+      margin-top: 3px;
+    }
+
+    .kpi-card.green .kpi-value { color: #16a34a; }
+    .kpi-card.amber .kpi-value { color: #d97706; }
+    .kpi-card.red .kpi-value { color: #dc2626; }
+
+    /* =====================================================
+       DASHBOARD CARD & TABLE AREA
+    ===================================================== */
+    .dashboard-card {
+      flex: 1 1 auto;
+      min-height: 0;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 14px rgba(0,0,0,.08);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 12px;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 10px;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    .toolbar input {
+      padding: 7px 12px;
+      width: 360px;
+      max-width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 12px;
+      outline: none;
+      background: #f8fafc;
+    }
+
+    .toolbar input:focus {
+      border-color: #0661B6;
+      background: #ffffff;
+    }
+
+    .sync-status {
+      font-size: 11px;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 500;
+    }
+
+    .dot-live {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #16a34a;
+      display: inline-block;
+    }
+
+    .table-scroll {
+      flex: 1 1 auto;
+      overflow: auto;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 2500px;
+      font-size: 12px;
+    }
+
+    thead th {
+      background: #0661B6;
+      color: #ffffff;
+      font-weight: 600;
+      padding: 9px 8px;
+      border: 1px solid rgba(255,255,255,.2);
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 7px 8px;
+      border: 1px solid #e2e8f0;
+      vertical-align: middle;
+      line-height: 1.35;
+      color: #1e293b;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    tbody tr:hover {
+      background: #f1f5f9;
+    }
+
+    .text-center { text-align: center; }
+    .text-right { text-align: right; }
+    .font-bold { font-weight: 600; }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+    .footer {
+      width: 100%;
+      height: 28px;
+      min-height: 28px;
+      background: #0661B6;
+      color: rgba(255,255,255,.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: .1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex-shrink: 0;
+    }
+
+    /* =====================================================
+       RESPONSIVE DESIGN (TỐI ƯU TRÊN ĐIỆN THOẠI)
+    ===================================================== */
+    @media (max-width: 900px) {
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .topbar { height: 50px; min-height: 50px; padding: 0 14px; }
+      .seal { width: 34px; height: 34px; }
+      .brand { gap: 9px; }
+      .brand-txt strong { font-size: 11px; max-width: 220px; overflow: hidden; text-overflow: ellipsis; }
+      .brand-txt span { display: none; }
+      .badge, .date { height: 24px; padding: 0 9px; font-size: 9px; }
+      .main-wrap { padding: 6px; }
+      .footer { height: 26px; min-height: 26px; font-size: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      .topbar { height: 46px; min-height: 46px; padding: 0 10px; }
+      .seal { width: 30px; height: 30px; }
+      .brand { gap: 7px; }
+      .brand-txt strong { font-size: 10px; max-width: 140px; }
+      .badge { display: none; }
+      .kpi-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+      .kpi-value { font-size: 15px; }
+      .footer { height: 24px; min-height: 24px; font-size: 7.5px; }
+    }
+
+/* BỔ SUNG DASHBOARD - không sửa CSS header và logo gốc */
+html,body{overflow:auto;height:auto;background:#e8eef7}.app{min-height:100vh;height:auto;overflow:visible}.main-wrap{display:block;overflow:visible;padding:14px 18px 22px;background:linear-gradient(140deg,#e9f1ff,#f7f9ff 58%,#edf7ff)}
+.hero{background:linear-gradient(112deg,#062e62,#0661b6 58%,#169cda);color:white;border-radius:16px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 9px 26px #0b4b9030;margin-bottom:13px}.hero h1{font-size:clamp(19px,2vw,30px);line-height:1.2}.hero p{font-size:12px;opacity:.92;margin-top:8px}.hero .right{text-align:right;font-size:12px;min-width:210px}.hero .right b{display:block;font-size:14px;margin-bottom:8px}
+.controls{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 13px}.state{font-size:12px;color:#3b516c;font-weight:650}.state.err{color:#b91c1c}.actions{display:flex;gap:8px;align-items:center}.actions button,.actions select{border:1px solid #b8cce5;border-radius:9px;padding:9px 12px;background:white;color:#15416f;font-size:12px;font-weight:700;cursor:pointer}.actions button{background:#0661b6;color:white;border-color:#0661b6}.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:13px}.metric{background:white;border:1px solid #dbe6f4;border-radius:13px;padding:14px 16px;box-shadow:0 4px 15px #0a3c7310;position:relative;overflow:hidden}.metric:before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--accent)}.metric .n{font-size:31px;font-weight:850;color:var(--accent);line-height:1.15}.metric .t{font-size:12px;color:#506078;font-weight:700;margin-top:6px}.metric .sub{font-size:10px;color:#7a899d;margin-top:6px}.layout{display:grid;grid-template-columns:1.07fr .94fr 1.04fr;gap:13px;align-items:start}.column{display:flex;flex-direction:column;gap:13px}.panel{border-radius:14px;overflow:hidden;background:white;border:1px solid #d9e5f5;box-shadow:0 5px 18px #073b6d13}.panel-head{padding:13px 15px;color:white;display:flex;gap:10px;align-items:center}.panel-head .symbol{font-size:25px}.panel-head h2{font-size:15px;line-height:1.25}.panel-head small{display:block;font-size:10px;opacity:.9;font-weight:500;margin-top:4px}.panel.red .panel-head{background:linear-gradient(110deg,#ad1731,#e33443)}.panel.blue .panel-head{background:linear-gradient(110deg,#074f9d,#1188d2)}.panel.warn .panel-head{background:linear-gradient(110deg,#ad2531,#e34d47)}.panel.green .panel-head{background:linear-gradient(110deg,#087044,#21a665)}.panel.purple .panel-head{background:linear-gradient(110deg,#6333a6,#9465d2)}.panel-body{padding:4px 13px 10px}.item{padding:13px 2px;border-bottom:1px solid #e3ebf5}.item:last-child{border-bottom:none}.item-title{font-size:13px;color:#123b65;font-weight:800;line-height:1.4}.item-top{display:flex;justify-content:space-between;gap:9px;align-items:flex-start}.pct{font-size:22px;font-weight:850;color:#0759b3;white-space:nowrap}.pct.na{font-size:12px;color:#8b97a8}.progress-track{height:9px;border-radius:20px;background:#e1e9f2;overflow:hidden;margin:9px 0 9px}.progress-fill{height:100%;border-radius:20px;background:linear-gradient(90deg,#139ee0,#27b966)}.tag{display:inline-flex;align-items:center;padding:5px 8px;border-radius:7px;background:#e8f7ed;color:#147643;font-size:11px;font-weight:800;margin:4px 0}.tag.deadline{background:#ffeced;color:#b91f32}.tag.warn{background:#fff1e8;color:#ad451b}.item-desc{font-size:11px;color:#43546a;line-height:1.5;margin-top:6px}.item-meta{font-size:10px;color:#697b91;margin-top:7px}.mini{font-size:10px;color:#697b91;margin-top:6px}.section-foot{margin:6px 13px 13px;padding:10px;border-radius:10px;background:#e8f3ff;color:#0c538d;font-size:11px;line-height:1.5}.empty{padding:15px;color:#64748b;font-size:12px}.notice{margin-top:14px;background:#0c3971;color:#e8f4ff;padding:13px 16px;border-radius:11px;font-size:11px;line-height:1.5}.notice strong{color:white}.item input{border:1px solid #cddbe9;border-radius:8px;padding:7px;font-size:11px;width:100%}.toolbar-filter{display:flex;align-items:center;gap:7px}.toolbar-filter input{padding:9px;border-radius:9px;border:1px solid #b8cce5;min-width:210px;font-size:12px}.logo-note{font-size:10px;opacity:.9}
+@media(max-width:1180px){.layout{grid-template-columns:1fr 1fr}.column:last-child{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr}}@media(max-width:800px){.layout{grid-template-columns:1fr}.column:last-child{grid-column:auto;display:flex}.summary{grid-template-columns:1fr 1fr}.hero{flex-direction:column;align-items:flex-start}.hero .right{text-align:left}.brand-txt strong{max-width:75vw;overflow:hidden;text-overflow:ellipsis}.topbar-right .badge{display:none}}@media(max-width:500px){.summary{gap:8px}.metric{padding:12px}.metric .n{font-size:25px}.hero{padding:16px}.main-wrap{padding:8px}.toolbar-filter input{min-width:130px;max-width:170px}.brand-txt strong{max-width:220px}.topbar-right .date{display:none}}
+</style></head><body><div class="app">    <header class="topbar">
+      <div class="brand">
+        <div class="seal">
+          <img src="logobgtnn.png" alt="Logo Ban QLDA Giao thông và Nông nghiệp Đà Nẵng">
+        </div>
+        <div class="brand-txt">
+          <strong>BAN QUẢN LÝ DỰ ÁN ĐẦU TƯ XÂY DỰNG CÁC CÔNG TRÌNH GIAO THÔNG VÀ NÔNG NGHIỆP ĐÀ NẴNG</strong>
+          <span>HỆ THỐNG DỮ LIỆU BÁO CÁO IOC THÀNH PHỐ · 2026</span>
+        </div>
+      </div>
+
+      <div class="topbar-right">
+        <span class="badge">📊 KH 2026</span>
+        <span class="date" id="currentDate">--</span>
+      </div>
+    </header>
+<main class="main-wrap"><section class="hero"><div><h1>🌉 CHỈ ĐẠO & TIẾN ĐỘ CÁC CÔNG TRÌNH CẦU</h1><p>TB 1155/TB-VP (17/11/2026) – Kết luận Chủ tịch UBND TP &nbsp;|&nbsp; CV 22054/SXD-QLXD (23/11/2026) – Báo cáo, kiến nghị Sở Xây dựng</p></div><div class="right"><b>HỆ THỐNG ĐIỀU HÀNH BGTNN</b><span id="syncLabel">Đang khởi tạo dữ liệu...</span></div></section>
+<div class="controls"><span id="sourceState" class="state">Dữ liệu nguồn: đang kiểm tra</span><div class="actions"><div class="toolbar-filter"><input id="search" placeholder="🔎 Tìm công trình / nhiệm vụ" aria-label="Tìm kiếm"></div><button id="refresh">↻ Làm mới</button></div></div>
+<section class="summary"><div class="metric" style="--accent:#c6263a"><div class="n" id="kpiDeadline">—</div><div class="t">Công trình / hạng mục mốc 31/12/2026</div><div class="sub">Văn Ly; Tây An 1–2 (01 dự án); đường nối QL14B</div></div><div class="metric" style="--accent:#0965b9"><div class="n" id="kpiTraffic">—</div><div class="t">Cầu bổ sung thông xe 2026</div><div class="sub">Tây Giang và Nghĩa Tự – CV 22054</div></div><div class="metric" style="--accent:#d34836"><div class="n" id="kpiWarn">—</div><div class="t">Đầu mục theo dõi, cảnh báo</div><div class="sub">Quảng Đà, Tam Hòa, Tam Tiến, nhóm Quế Sơn</div></div><div class="metric" style="--accent:#13965a"><div class="n" id="kpiInvestment">—</div><div class="t">Dự án chuẩn bị đầu tư</div><div class="sub">Phấn đấu khởi công trước 29/3/2027</div></div></section>
+<div class="layout"><div class="column"><section class="panel red"><div class="panel-head"><span class="symbol">📅</span><div><h2>MỐC CHỈ ĐẠO: TRƯỚC 31/12/2026</h2><small>Theo TB 1155/TB-VP – 03 công trình/hạng mục (04 cầu/đường tính riêng: 2 cầu Tây An)</small></div></div><div class="panel-body" id="deadline"></div><div class="section-foot"><b>Chỉ đạo:</b> Lập tiến độ chi tiết, huy động nhân lực, thiết bị, vật liệu; bảo đảm chất lượng và an toàn.</div></section></div>
+<div class="column"><section class="panel blue"><div class="panel-head"><span class="symbol">🌉</span><div><h2>CẦU SXD ĐÁNH GIÁ THÔNG XE NĂM 2026</h2><small>CV 22054 – bổ sung, không đếm trùng Văn Ly và Tây An</small></div></div><div class="panel-body" id="traffic"></div><div class="section-foot">Các mốc <b>thông xe</b> không đồng nghĩa <b>hoàn thành toàn bộ công trình</b>.</div></section><section class="panel green"><div class="panel-head"><span class="symbol">🛣️</span><div><h2>CHUẨN BỊ ĐẦU TƯ</h2><small>TB 1155 – phấn đấu khởi công trước 29/3/2027</small></div></div><div class="panel-body" id="investment"></div></section></div>
+<div class="column"><section class="panel warn"><div class="panel-head"><span class="symbol">⚠️</span><div><h2>CẢNH BÁO & THEO DÕI TIẾN ĐỘ</h2><small>Đánh giá, tình hình theo CV 22054</small></div></div><div class="panel-body" id="warning"></div></section><section class="panel purple"><div class="panel-head"><span class="symbol">🤝</span><div><h2>NHIỆM VỤ PHỐI HỢP</h2><small>TB 1155 và CV 22054</small></div></div><div class="panel-body" id="coord"></div><div class="section-foot">BGTNN phối hợp xử lý GPMB, tái định cư, hạ tầng kỹ thuật; kiểm tra nhà thầu và báo cáo định kỳ qua Sở Xây dựng <b>trước ngày 20 hằng tháng</b>.</div></section></div></div>
+<div class="notice"><strong>NGUYÊN TẮC DỮ LIỆU:</strong> TB 1155 là kết luận chỉ đạo của Chủ tịch UBND thành phố; CV 22054 là báo cáo tiến độ và kiến nghị của Sở Xây dựng. Số liệu ban đầu được trích từ 02 văn bản (23/11/2026). Mốc báo cáo không tự thay thế mốc chỉ đạo. Nếu chưa kết nối Google Sheets, hệ thống hiển thị <strong>dữ liệu mẫu – không phải cập nhật trực tuyến</strong>.</div></main>    <footer class="footer">
+      BAN QUẢN LÝ DỰ ÁN ĐẦU TƯ XÂY DỰNG CÁC CÔNG TRÌNH GIAO THÔNG VÀ NÔNG NGHIỆP ĐÀ NẴNG
+      &nbsp;·&nbsp;
+      HỆ THỐNG IOC
+      &nbsp;·&nbsp;
+      NĂM 2026
+    </footer>
+</div><script>
+const CONFIG={SHEET_ID:'1JkKgHWHRD2wStp2fh_p-Fxai5D32QTS_ytfTzgfnYak',SHEET_NAME:'Dashboard_Data',REFRESH_MINUTES:5,APPS_SCRIPT_URL:''};
+const INITIAL_DATA=[{"id": "VL", "group": "deadline", "name": "Cầu Văn Ly và đường dẫn", "progress": "78,5", "deadline": "2026-12-31", "milestone": "Thông xe kỹ thuật", "secondary_deadline": "2027-04", "secondary_milestone": "Hoàn thành công trình", "situation": "Đã thông xe tạm; cơ bản hoàn thành GPMB; còn di dời điện, cáp quang, đường nước; thi công khu tái định cư", "source": "TB 1155; CV 22054", "updated": "", "owner": ""}, {"id": "TA", "group": "deadline", "name": "Cầu Tây An 1 và Tây An 2", "progress": "70", "deadline": "2026-12-31", "milestone": "Thông xe kỹ thuật", "secondary_deadline": "2026", "secondary_milestone": "CV 22054 nêu hoàn thành năm 2026", "situation": "GPMB hoàn thành; tiến độ thi công còn chậm. Tỷ lệ 70% là của dự án chung", "source": "TB 1155; CV 22054", "updated": "", "owner": ""}, {"id": "AB", "group": "deadline", "name": "Đường nối ĐT.609C – QL14B (cầu An Bình)", "progress": "", "deadline": "2026-12-31", "milestone": "Hoàn thành đoạn đường còn lại", "secondary_deadline": "", "secondary_milestone": "", "situation": "Rà soát tổ chức giao thông nút giao QL14B, bảo đảm an toàn", "source": "TB 1155", "updated": "", "owner": ""}, {"id": "TG", "group": "traffic", "name": "Cầu Tây Giang (Bình Sa – Bình Hải)", "progress": "76,8", "deadline": "2026", "milestone": "Thông xe trong năm 2026", "secondary_deadline": "2027-03-29", "secondary_milestone": "Hoàn thành công trình", "situation": "GPMB cơ bản hoàn thành; còn 02 hộ chưa bàn giao mặt bằng", "source": "CV 22054", "updated": "", "owner": ""}, {"id": "NT", "group": "traffic", "name": "Cầu Nghĩa Tự", "progress": "89,8", "deadline": "2026", "milestone": "Thông xe trong năm 2026", "secondary_deadline": "2027-06", "secondary_milestone": "Hoàn thành trước tháng 6/2027", "situation": "Còn 02 hộ phía Tây cầu; chưa di dời hạ tầng kỹ thuật; cần khu tái định cư", "source": "CV 22054", "updated": "", "owner": ""}, {"id": "QD", "group": "warning", "name": "Cầu Quảng Đà – đường vành đai phía Bắc", "progress": "40", "deadline": "2026-12-31", "milestone": "Mốc thông tuyến; SXD đánh giá khó khả thi", "secondary_deadline": "", "secondary_milestone": "", "situation": "Tiến độ 40% là cầu vượt cao tốc; còn 93/484 hồ sơ GPMB; GPMB trước 31/12/2026", "source": "CV 22054", "updated": "", "owner": ""}, {"id": "TH", "group": "warning", "name": "Cầu Tam Hòa (cầu Trường Giang)", "progress": "69,4", "deadline": "2027-03-29", "milestone": "Hoàn thành công trình", "secondary_deadline": "", "secondary_milestone": "", "situation": "Còn 0,8 km đường chưa bàn giao mặt bằng; SXD đánh giá khả năng cao không hoàn thành năm 2026", "source": "CV 22054", "updated": "", "owner": ""}, {"id": "TT", "group": "warning", "name": "Cầu Tam Tiến", "progress": "", "deadline": "2028-06", "milestone": "Hoàn thành toàn bộ công trình", "secondary_deadline": "2026-12", "secondary_milestone": "Lựa chọn nhà thầu thi công trở lại", "situation": "Còn 01 hộ; xã Tam Xuân dự kiến cưỡng chế 20/11/2026–15/01/2027", "source": "CV 22054", "updated": "", "owner": ""}, {"id": "QS", "group": "warning", "name": "Cầu Ly Ly, Chợ Đụn, cầu vượt đường sắt – Quế Sơn", "progress": "", "deadline": "2028", "milestone": "Hoàn thành công trình", "secondary_deadline": "2026-12-31", "secondary_milestone": "Hoàn thành GPMB", "situation": "Đang điều chỉnh chủ trương đầu tư, lựa chọn nhà thầu mới; bàn giao toàn bộ mặt bằng trong tháng 12/2026", "source": "CV 22054", "updated": "", "owner": ""}, {"id": "DN1", "group": "investment", "name": "Đường nối ĐH5.ĐL đến ĐT.609C", "progress": "", "deadline": "2027-03-29", "milestone": "Phấn đấu khởi công", "secondary_deadline": "2026–2029", "secondary_milestone": "Thời gian thực hiện dự án được duyệt", "situation": "Đã phê duyệt chủ trương đầu tư theo QĐ 5262/QĐ-UBND ngày 16/11/2026", "source": "TB 1155; CV 22054", "updated": "", "owner": ""}, {"id": "DN2", "group": "investment", "name": "Đường nối cầu Văn Ly – cầu Lệ Bắc – QL14H", "progress": "", "deadline": "2027-03-29", "milestone": "Phấn đấu khởi công", "secondary_deadline": "", "secondary_milestone": "", "situation": "Đẩy nhanh thủ tục đầu tư để sớm thi công", "source": "TB 1155; CV 22054", "updated": "", "owner": ""}, {"id": "DT", "group": "coord", "name": "Cổng, tường rào Trường Tiểu học Duy Tân", "progress": "", "deadline": "2026-11-25", "milestone": "Hoàn thành xử lý", "secondary_deadline": "", "secondary_milestone": "", "situation": "Sở Xây dựng chủ trì, BGTNN phối hợp; nghiên cứu khu vực chờ đưa đón học sinh, phân luồng giao thông", "source": "TB 1155", "updated": "", "owner": ""}, {"id": "NP", "group": "coord", "name": "Đường dân sinh Nam Phước hư hỏng", "progress": "", "deadline": "", "milestone": "Kiểm tra, lập phương án sửa chữa", "secondary_deadline": "", "secondary_milestone": "", "situation": "UBND xã Nam Phước chủ trì, BGTNN phối hợp xác định phạm vi hư hỏng, dự toán và đề xuất kinh phí", "source": "TB 1155", "updated": "", "owner": ""}, {"id": "BC", "group": "coord", "name": "Báo cáo định kỳ công trình cầu", "progress": "", "deadline": "20 hằng tháng", "milestone": "Gửi Sở Xây dựng trước ngày 20 hằng tháng", "secondary_deadline": "", "secondary_milestone": "", "situation": "Rà soát tiến độ, GPMB, tái định cư, di dời hạ tầng kỹ thuật, nhà thầu và các vấn đề vượt thẩm quyền", "source": "CV 22054", "updated": "", "owner": ""}];
+let currentData=INITIAL_DATA, live=false;
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function pct(v){const s=String(v??'').replace('%','').replace(',','.').trim();if(!s)return null;const n=Number(s);return Number.isFinite(n)&&n>=0&&n<=100?n:null}
+function dateLabel(s){s=String(s||'').trim();if(/^\d{4}-\d{2}-\d{2}$/.test(s)){let [y,m,d]=s.split('-');return `${d}/${m}/${y}`}if(/^\d{4}-\d{2}$/.test(s))return `Tháng ${s.slice(5)}/${s.slice(0,4)}`;return s||'Chưa có mốc'}
+function itemHTML(x){let p=pct(x.progress),tag=x.group==='warning'?'warn':x.group==='deadline'?'deadline':'';return `<article class="item"><div class="item-top"><div class="item-title">${esc(x.name)}</div><div class="pct ${p===null?'na':''}">${p===null?'Chưa có %':p.toLocaleString('vi-VN',{maximumFractionDigits:1})+'%'}</div></div>${p!==null?`<div class="progress-track"><div class="progress-fill" style="width:${p}%"></div></div>`:''}<div><span class="tag ${tag}">${esc(x.milestone||'Theo dõi')} · ${esc(dateLabel(x.deadline))}</span></div>${x.secondary_milestone?`<div class="mini"><b>Mốc khác:</b> ${esc(x.secondary_milestone)} – ${esc(dateLabel(x.secondary_deadline))}</div>`:''}<div class="item-desc">${esc(x.situation||'Chưa có cập nhật tình hình')}</div><div class="item-meta">Nguồn: ${esc(x.source||'—')}${x.updated?' · Cập nhật: '+esc(x.updated):''}${x.owner?' · Phòng: '+esc(x.owner):''}</div></article>`}
+function render(){const kw=document.getElementById('search').value.trim().toLocaleLowerCase('vi');const filtered=currentData.filter(x=>Object.values(x).some(v=>String(v??'').toLocaleLowerCase('vi').includes(kw)));for(const group of ['deadline','traffic','warning','investment','coord']){let list=filtered.filter(x=>x.group===group);document.getElementById(group).innerHTML=list.length?list.map(itemHTML).join(''):'<div class="empty">Không có dữ liệu phù hợp.</div>'}for(const [id,group] of [['kpiDeadline','deadline'],['kpiTraffic','traffic'],['kpiWarn','warning'],['kpiInvestment','investment']])document.getElementById(id).textContent=currentData.filter(x=>x.group===group).length.toLocaleString('vi-VN')}
+function parseCSV(s){let out=[],row=[],cell='',quote=false;for(let i=0;i<s.length;i++){let c=s[i];if(c==='"'){if(quote&&s[i+1]==='"'){cell+='"';i++}else quote=!quote}else if(c===','&&!quote){row.push(cell);cell=''}else if((c==='\n'||c==='\r')&&!quote){if(c==='\r'&&s[i+1]==='\n')i++;row.push(cell);if(row.some(v=>v.trim()))out.push(row);row=[];cell=''}else cell+=c}row.push(cell);if(row.some(v=>v.trim()))out.push(row);let h=(out.shift()||[]).map(x=>x.trim().replace(/^\uFEFF/,''));return out.map(r=>Object.fromEntries(h.map((k,i)=>[k,(r[i]||'').trim()]))) }
+async function load(){const state=document.getElementById('sourceState'),sync=document.getElementById('syncLabel');state.textContent='Đang đọc Google Sheets...';state.classList.remove('err');try{let data;if(CONFIG.APPS_SCRIPT_URL){let resp=await fetch(CONFIG.APPS_SCRIPT_URL,{cache:'no-store'});if(!resp.ok)throw Error('HTTP '+resp.status);let j=await resp.json();data=Array.isArray(j)?j:j.data;if(!Array.isArray(data))throw Error('Apps Script không trả về mảng dữ liệu')}else{const url=`https://docs.google.com/spreadsheets/d/${encodeURIComponent(CONFIG.SHEET_ID)}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(CONFIG.SHEET_NAME)}&_=${Date.now()}`;let resp=await fetch(url,{cache:'no-store'});if(!resp.ok)throw Error('HTTP '+resp.status);data=parseCSV(await resp.text())}data=data.filter(x=>x.id&&x.group&&x.name);if(!data.length)throw Error('Bảng không có dữ liệu hoặc sai tên cột');currentData=data;live=true;let time=new Date().toLocaleString('vi-VN');state.textContent='● Đã đồng bộ Google Sheets · '+time;sync.textContent='Cập nhật lúc '+time;render()}catch(e){live=false;state.classList.add('err');state.textContent='⚠ Chưa đồng bộ: '+e.message;sync.textContent='Đang hiển thị dữ liệu mẫu từ 02 văn bản';render()}}
+document.getElementById('currentDate').textContent=new Date().toLocaleDateString('vi-VN');document.getElementById('search').addEventListener('input',render);document.getElementById('refresh').addEventListener('click',load);render();load();setInterval(load,Math.max(1,CONFIG.REFRESH_MINUTES)*60000);
 </script></body></html>
